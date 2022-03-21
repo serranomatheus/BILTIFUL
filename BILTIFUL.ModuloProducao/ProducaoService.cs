@@ -295,7 +295,7 @@ namespace BILTIFUL.ModuloProducao
         void Localizar()
         {
 
-            Console.WriteLine("Digite o nome ou código de barras do produto para localizar a produção dele.");
+            Console.Write("Digite o nome ou código de barras do produto para localizar a produção: ");
             string busca = Console.ReadLine();
 
             Produto produto = cadastroService.cadastros.produtos.FirstOrDefault(c => c.Nome == busca || c.CodigoBarras == busca);
