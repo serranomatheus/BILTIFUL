@@ -17,11 +17,11 @@ namespace BILTIFUL.Core.Entidades
 
         public MPrima(string idcod,string nome)
         {
-            Id = "MP" + idcod.PadLeft(4, '0');
+            this.Id = double.Parse(idcod);
             this.Nome = nome;
         }
 
-        public MPrima(string id, string nome, DateTime ucompra, DateTime dcadastro, Situacao situacao)
+        public MPrima(double id, string nome, DateTime ucompra, DateTime dcadastro, Situacao situacao)
         {
             this.Id = id;
             this.Nome = nome;

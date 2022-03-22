@@ -18,9 +18,9 @@ namespace BILTIFUL.Core.Entidades
         }
 
 
-        public Produto(string cbarras, string nome, string vvenda)
+        public Produto( string nome, string vvenda)
         {
-            this.CodigoBarras += cbarras.PadLeft(5,'0');
+            
             this.Nome = nome;
             this.ValorVenda = vvenda.PadLeft(5, '0');
         }

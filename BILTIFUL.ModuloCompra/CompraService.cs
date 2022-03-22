@@ -1,5 +1,5 @@
 ﻿using BILTIFUL.Core;
-using BILTIFUL.Core.Controles;
+//using BILTIFUL.Core.Controles;
 using BILTIFUL.Core.Entidades;
 using System;
 using System.Collections.Generic;
@@ -7,22 +7,20 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//using BILTIFUL.Core.Controles;
+using BILTIFUL.Core.Crud;
+using BILTIFUL.Core.Entidades;
+using BILTIFUL.Core.Entidades.Enums;
 
 
 namespace BILTIFUL.ModuloCompra
 {
     public class CompraService
     {
+        CrudCompra crudCompra = new CrudCompra();
         CadastroService cadastroService = new CadastroService();
 
-        //List<Fornecedor> testes = new List<Fornecedor>();
-        //public void AdicionarFornecedor()
-        //{
 
-        //    testes.Add(new Fornecedor(1, "fornecedor1"));
-        //    testes.Add(new Fornecedor(2, "fornecedor2"));
-        //}
         string cnpj;
         public void SubMenu()
         {
@@ -44,13 +42,13 @@ namespace BILTIFUL.ModuloCompra
 
                     break;
                 case "2":
-                    LocalizarCompra(cadastroService.cadastros.compras, cadastroService.cadastros.itenscompra);
+                    LocalizarCompra();
                     break;
                 case "3":
-                    if (cadastroService.cadastros.compras.Count() != 0)
-                        new Registros(cadastroService.cadastros.compras, cadastroService.cadastros.itenscompra);
-                    else
-                        Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
+                    //// if (cadastroService.cadastros.compras.Count() != 0)
+                    //  //   new Registros(cadastroService.cadastros.compras, cadastroService.cadastros.itenscompra);
+                    // else
+                    //     Console.WriteLine("\t\t\t\t\tNenhum produto registrado");
                     break;
                 case "0":
                     break;
@@ -59,7 +57,7 @@ namespace BILTIFUL.ModuloCompra
             }
         }
 
-        public void LocalizarCompra(List<Compra> compras, List<ItemCompra> itens)
+        public void LocalizarCompra()
         {
             string opc;
             do
@@ -71,38 +69,38 @@ namespace BILTIFUL.ModuloCompra
                 Console.WriteLine("\t\t\t\t\t|1| - LOCALIZAR POR DATA                       |");
                 Console.WriteLine("\t\t\t\t\t|2| - LOCALIZAR POR FORNECEDOR                 |");
                 Console.WriteLine("\t\t\t\t\t|3| - LOCALIZAR POR ID                         |");
-                Console.WriteLine("\t\t\t\t\t|0| - VOLTAR                                   |");
-                Console.Write("\t\t\t\t\t|______________________________________________|\n" +
-                              "\t\t\t\t\t|Opção: ");
-                opc = Console.ReadLine();
+                console.writeline("\t\t\t\t\t|0| - voltar                                   |");
+                console.write("\t\t\t\t\t|______________________________________________|\n" +
+                              "\t\t\t\t\t|opção: ");
+                opc = console.readline();
                 bool encontrado = false;
-                Console.Clear();
+                console.clear();
                 switch (opc)
                 {
                     case "1":
-                        Console.Write("\t\t\t\t\tDigite o data de compra que deseja localizar(dd/mm/aaaa): ");
-                        DateTime dcompra = DateTime.Parse(Console.ReadLine());
-                        List<Compra> localizacompra = cadastroService.cadastros.compras.FindAll(p => p.DataCompra == dcompra);
+                        console.write("\t\t\t\t\tdigite o data de compra que deseja localizar(dd/mm/aaaa): ");
+                        datetime dcompra = datetime.parse(console.readline());
+                        list<compra> localizacompra = cadastroservice.cadastros.compras.findall(p => p.datacompra == dcompra);
                         if (localizacompra != null)
                         {
 
-                            foreach (Compra p in localizacompra)
+                            foreach (compra p in localizacompra)
                             {
-                                Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("\t\t\t\t\tItens: ");
-                                foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
+                                console.writeline(p.dadoscompra());
+                                console.writeline("\t\t\t\t\titens: ");
+                                foreach (itemcompra i in cadastroservice.cadastros.itenscompra)
                                 {
-                                    if (i.Id == p.Id)
-                                        Console.WriteLine(i.DadosItemCompra());
+                                    if (i.id == p.id)
+                                        console.writeline(i.dadositemcompra());
                                     encontrado = true;
                                 }
-                                Console.ReadKey();
+                                console.readkey();
                             }
                         }
                         if (encontrado != true)
                         {
-                            Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
-                            Console.ReadKey();
+                            console.writeline("\t\t\t\t\tnenhuma compra encontrada");
+                            console.readkey();
                         }
 
                         break;
@@ -111,66 +109,66 @@ namespace BILTIFUL.ModuloCompra
 
                         bool saida = false;
 
-                        Console.Write("\t\t\t\t\tDigite o CNPJ do fornecedor que deseja localizar: ");
+                        console.write("\t\t\t\t\tdigite o cnpj do fornecedor que deseja localizar: ");
 
-                        cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
+                        cnpj = console.readline().trim().replace(".", "").replace("-", "").replace("/", "");
                         saida = true;
-                        List<Compra> localizacnpj = cadastroService.cadastros.compras.FindAll(p => p.Fornecedor == cnpj);
+                        list<compra> localizacnpj = cadastroservice.cadastros.compras.findall(p => p.fornecedor == cnpj);
                         if (localizacnpj != null)
                         {
 
-                            foreach (Compra p in localizacnpj)
+                            foreach (compra p in localizacnpj)
                             {
-                                Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("\t\t\t\t\tItens: ");
-                                foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
+                                console.writeline(p.dadoscompra());
+                                console.writeline("\t\t\t\t\titens: ");
+                                foreach (itemcompra i in cadastroservice.cadastros.itenscompra)
                                 {
-                                    if (i.Id == p.Id)
-                                        Console.WriteLine(i.DadosItemCompra());
+                                    if (i.id == p.id)
+                                        console.writeline(i.dadositemcompra());
                                     encontrado = true;
                                 }
-                                Console.ReadKey();
+                                console.readkey();
                             }
                         }
                         if (encontrado != true)
                         {
-                            Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
-                            Console.ReadKey();
+                            console.writeline("\t\t\t\t\tnenhuma compra encontrada");
+                            console.readkey();
                         }
 
                         break;
                     case "3":
-                        Console.Write("\t\t\t\t\tDigite o ID da compra que deseja localizar: ");
-                        string idCompra = Console.ReadLine();
-                        List<Compra> localizaId = cadastroService.cadastros.compras.FindAll(p => p.Id == idCompra);
-                        if (localizaId != null)
+                        console.write("\t\t\t\t\tdigite o id da compra que deseja localizar: ");
+                        string idcompra = console.readline();
+                        list<compra> localizaid = cadastroservice.cadastros.compras.findall(p => p.id == idcompra);
+                        if (localizaid != null)
                         {
 
-                            foreach (Compra p in localizaId)
+                            foreach (compra p in localizaid)
                             {
-                                Console.WriteLine(p.DadosCompra());
-                                Console.WriteLine("\t\t\t\t\tItens: ");
-                                foreach (ItemCompra i in cadastroService.cadastros.itenscompra)
+                                console.writeline(p.dadoscompra());
+                                console.writeline("\t\t\t\t\titens: ");
+                                foreach (itemcompra i in cadastroservice.cadastros.itenscompra)
                                 {
-                                    if (i.Id == p.Id)
-                                        Console.WriteLine(i.DadosItemCompra());
+                                    if (i.id == p.id)
+                                        console.writeline(i.dadositemcompra());
                                     encontrado = true;
                                 }
-                                Console.ReadKey();
+                                console.readkey();
                             }
                         }
                         if (encontrado != true)
                         {
-                            Console.WriteLine("\t\t\t\t\tNenhuma compra encontrada");
-                            Console.ReadKey();
+                            console.writeline("\t\t\t\t\tnenhuma compra encontrada");
+                            console.readkey();
                         }
 
                         break;
                     case "0":
-                        SubMenu();
+                        submenu();
                         break;
                     default:
-                        Console.WriteLine("Selecione uma opcao valida");
+                        console.writeline("selecione uma opcao valida");
                         break;
                 }
 
@@ -183,34 +181,27 @@ namespace BILTIFUL.ModuloCompra
         public void CadastrarCompra()
         {
 
-
+            bool fornecedorEncontrado = false;
             string opc = "a";
 
             Console.Clear();
             do
             {
                 Console.WriteLine("\n\t\t\t\t\t------------CADASTRAR COMPRA------------");
-                Console.Write("\t\t\t\t\tInforme o CNPJ do forncedor : ");
+                Console.Write("\t\t\t\t\tInforme o CNPJ do fornecedor : ");
 
 
                 cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
 
 
-                if (BuscarBloqueado(cnpj, cadastroService.cadastros.bloqueados))
+                if (crudCompra.PesquisarBloqueado(cnpj) == true)
                 {
-                    Console.WriteLine("\t\t\t\t\tFornecedor bloqueado para compra");
+
                     return;
                 }
-
-                Fornecedor fornecedorCompra = BuscarCnpj(cnpj.ToString(), cadastroService.cadastros.fornecedores);
-                if (fornecedorCompra == null)
+                fornecedorEncontrado = crudCompra.PesquisarCNPJ(cnpj);
+                if (fornecedorEncontrado == true)
                 {
-                    Console.WriteLine("\t\t\t\t\tFornecedor nao encontrado.");
-                }
-                else
-                {
-                    Console.WriteLine(fornecedorCompra.DadosFornecedorCompra());
-                    Console.WriteLine("\t\t\t\t\t------------------------------");
                     do
                     {
                         Console.Write("\t\t\t\t\tConfirma dados do Fornecedor (S/N): ");
@@ -225,8 +216,15 @@ namespace BILTIFUL.ModuloCompra
                     if (opc == "N")
                     {
                         Console.WriteLine("");
-
+                        CadastrarCompra();
                     }
+                }
+                else
+                {
+                    Console.WriteLine("\t\t\t\t\tFornecedor nao encontrado");
+                    Console.WriteLine("\t\t\t\t\tPressione uma tecla para voltar");
+                    Console.ReadKey();
+                    CadastrarCompra();
                 }
 
             } while (opc != "S");
@@ -249,121 +247,106 @@ namespace BILTIFUL.ModuloCompra
             double valorTotal = 0;
             string[] totalItemString = new string[4];
             bool valorTotalMaior = false;
+            string[] nomeMPrima = new string[4];
+
+
             do
             {
-
+                opcp = "a";
+                string buscarMPrima;
+                bool buscar = false;
+                Console.Clear();
                 do
                 {
-                    opcp = "a";
-                    string buscarMPrima;
-                    Console.Clear();
-                    do
+                    Console.Write("\t\t\t\t\tInforme o nome da Materia-Prima : ");
+                    nomeMPrima[cont] = Console.ReadLine();
+                    if (crudCompra.PesquisarMPrima(nomeMPrima[cont]) == true)
                     {
-                        Console.Write("\t\t\t\t\tInforme o nome da Materia-Prima : ");
-                        buscarMPrima = Console.ReadLine();
-                    } while (ImprimirMPrima(cadastroService.cadastros.materiasprimas, buscarMPrima) != true);
-                    MPrima mPrimaCompra;
-                    bool buscar = true;
-                    do
-                    {
-                        Console.Write("\t\t\t\t\tInforme o ID referente a Materia-Prima que deseja adicionar : ");
+                        Console.Write("\t\t\t\t\tInforme o ID da Materia-Prima para confirmar : ");
                         idMPrima[cont] = Console.ReadLine().ToUpper();
 
-                        mPrimaCompra = BuscaMPrima(idMPrima[cont], cadastroService.cadastros.materiasprimas);
-                        if (mPrimaCompra == null)
+                        if (crudCompra.PesquisarMPrimaID(idMPrima[cont]) == false)
                         {
                             Console.WriteLine("\t\t\t\t\tMateria-Prima nao encontrada.");
                             buscar = false;
-
                         }
                         else
                         {
                             buscar = true;
                         }
-                    } while (buscar != true);
-
-                    Console.WriteLine(mPrimaCompra.DadosMateriaPrima());
-                    Console.WriteLine("\t\t\t\t\t-------------------------------------------");
-                    do
+                    }
+                    else
                     {
-                        Console.Write("\t\t\t\t\tConfirma dados da Matéria-Prima (S/N): ");
-                        opcp = Console.ReadLine().ToUpper();
-                        if ((opcp != "S" & opcp != "N"))
-                        {
-                            Console.WriteLine("\t\t\t\t\tEscolha uma opcao válida");
+                        Console.WriteLine("\t\t\t\t\tMateria-Prima nao encontrada.");
+                    }
 
-                        }
-                    } while (opcp != "S" & opcp != "N");
-                    if (opcp == "N")
+
+
+                } while (buscar != true);
+
+
+                do
+                {
+                    Console.Clear();
+                    Console.WriteLine("\t\t\t\t\t-----------------------------------------");
+                    Console.WriteLine("\t\t\t\t\tInforme o valor unitario da Materia-Prima");
+                    Console.Write("\t\t\t\t\tValor($$$,$$) (valor precisa ser menor que 1000,00): ");
+
+                    if (double.TryParse(Console.ReadLine(), out double confirmar2))
                     {
-                        Console.WriteLine("");
+                        stringValor[cont] = confirmar2.ToString();
+                        valorQuantidade[cont] = double.Parse(stringValor[cont]);
+                        stringValor[cont] = stringValor[cont].Trim().Replace(".", "").Replace(",", "");
+                        if (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0))
+                            Console.WriteLine("\t\t\t\t\tValor invalido!");
 
                     }
                     else
                     {
-
+                        Console.WriteLine("\t\t\t\t\tInforme um valor correto");
+                        Console.WriteLine("\t\t\t\t\tPressione uma tecla para voltar");
+                        Console.ReadKey();
+                    }
+                } while (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0));
+                do
+                {
+                    do
+                    {
                         do
                         {
-                            Console.Clear();
-                            Console.WriteLine("\t\t\t\t\t-----------------------------------------");
-                            Console.WriteLine("\t\t\t\t\tInforme o valor unitario da Materia-Prima");
-                            Console.Write("\t\t\t\t\tValor($$$,$$) (valor precisa ser menor que 1000,00): ");
-
-                            if (double.TryParse(Console.ReadLine(), out double confirmar2))
+                            Console.Write("\t\t\t\t\tInforme a quantidade: ");
+                            if (double.TryParse(Console.ReadLine(), out double confirmar1))
                             {
-                                stringValor[cont] = confirmar2.ToString();
-                                valorQuantidade[cont] = double.Parse(stringValor[cont]);
-                                stringValor[cont] = stringValor[cont].Trim().Replace(".", "").Replace(",", "");
-                                if (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0))
-                                    Console.WriteLine("\t\t\t\t\tValor invalido!");
+                                quantidadeString[cont] = confirmar1.ToString();
 
+                                quantidade[cont] = double.Parse(quantidadeString[cont]);
+                                quantidadeString[cont] = quantidadeString[cont].Trim().Replace(".", "").Replace(",", "");
+                                totalItemString[cont] = (quantidade[cont] * valorQuantidade[cont]).ToString("F2");
+                                totalItem[cont] = (quantidade[cont] * valorQuantidade[cont]);
+                                if (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0))
+                                    Console.WriteLine("\t\t\t\t\tValor invalido!");
                             }
                             else
                             {
-                                Console.WriteLine("\t\t\t\t\tInforme um valor correto");
+                                Console.WriteLine("\t\t\t\t\tInforme uma quantidade correta");
                                 Console.WriteLine("\t\t\t\t\tPressione uma tecla para voltar");
                                 Console.ReadKey();
                             }
-                        } while (!double.TryParse(stringValor[cont], out valor) || (valor > 99999) || (valor <= 0));
-                        do
-                        {
-                            do
-                            {
-                                do
-                                {
-                                    Console.Write("\t\t\t\t\tInforme a quantidade: ");
-                                    if (double.TryParse(Console.ReadLine(), out double confirmar1))
-                                    {
-                                        quantidadeString[cont] = confirmar1.ToString();
-
-                                        quantidade[cont] = double.Parse(quantidadeString[cont]);
-                                        quantidadeString[cont] = quantidadeString[cont].Trim().Replace(".", "").Replace(",", "");
-                                        totalItemString[cont] = (quantidade[cont] * valorQuantidade[cont]).ToString("F2");
-                                        totalItem[cont] = (quantidade[cont] * valorQuantidade[cont]);
-                                        if (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0))
-                                            Console.WriteLine("\t\t\t\t\tValor invalido!");
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("\t\t\t\t\tInforme uma quantidade correta");
-                                        Console.WriteLine("\t\t\t\t\tPressione uma tecla para voltar");
-                                        Console.ReadKey();
-                                    }
-                                } while (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0));
-                            } while (TotalItem(valorQuantidade[cont], quantidade[cont]) != true);
-                            valorTotal = valorTotal + totalItem[cont];
-                            if (valorTotal > 99999.99)
-                            {
-                                Console.WriteLine("\t\t\t\t\tValor total da compra maior que permitido favor inserir outra quantidade");
-                                valorTotalMaior = true;
-                            }
-                        } while (valorTotalMaior != false);
+                        } while (!double.TryParse(quantidadeString[cont], out quantidadeTeste) || (quantidadeTeste > 99999) || (quantidadeTeste <= 0));
+                    } while (TotalItem(valorQuantidade[cont], quantidade[cont]) != true);
+                    valorTotal = valorTotal + totalItem[cont];
+                    if (valorTotal > 99999.99)
+                    {
+                        Console.WriteLine("\t\t\t\t\tValor total da compra maior que permitido favor inserir outra quantidade");
+                        valorTotalMaior = true;
                     }
+                } while (valorTotalMaior != false);
 
 
-                } while (opcp != "S");
+
+
                 Console.WriteLine("\n\t\t\t\t\tMateria-Prima:\t{0}\n\t\t\t\t\tValor Unitario:\t{1}\n\t\t\t\t\tQuantidade:\t{2}\n\t\t\t\t\tTotal Item:\t{3}", idMPrima[cont], valorQuantidade[cont], quantidade[cont], totalItemString[cont]);
-                
+
 
                 //valorTotal = valorTotal + totalItem[cont];
 
@@ -388,32 +371,29 @@ namespace BILTIFUL.ModuloCompra
             string confirmar = Console.ReadLine();
             if (confirmar == "S")
             {
-                string cod = "" + (++cadastroService.cadastros.codigos[3]);
-                cadastroService.SalvarCodigos();
+
+
                 string valorTotalString = (valorTotal.ToString("F2"));
                 valorTotalString = valorTotalString.Trim().Replace(".", "").Replace(",", "");
 
 
 
-                Compra compra = new Compra(cod, cnpj, valorTotalString);
-                cadastroService.cadastros.compras.Add(compra);
-                new Controle(compra);
+                Compra compra = new Compra(cnpj, valorTotal);
+                crudCompra.InserirCompra(compra);
+                double cod = crudCompra.Count();
                 for (int i = 0; i < cont; i++)
                 {
 
-                    quantidadeString[i] = quantidadeString[i].Trim().Replace(".", "").Replace(",", "");
-                    totalItemString[i] = totalItemString[i].Trim().Replace(".", "").Replace(",", "");
+                    ItemCompra itemCompra = new ItemCompra(i, cod, idMPrima[i], quantidade[i], valorQuantidade[i], totalItem[i]);
 
-
-                    ItemCompra itemCompra = new ItemCompra(cod, idMPrima[i], quantidadeString[i], stringValor[i], totalItemString[i]);
-                    new Controle(itemCompra);
-                    cadastroService.cadastros.itenscompra.Add(itemCompra);
+                    crudCompra.InserirItemCompra(itemCompra);
                 }
             }
             else
             {
                 SubMenu();
             }
+
         }
 
 
@@ -431,53 +411,9 @@ namespace BILTIFUL.ModuloCompra
             else
             { return true; }
         }
-        public Fornecedor BuscarCnpj(string fcnpj, List<Fornecedor> fornecedor)
-        {
-            Fornecedor fornecedorcompra = fornecedor.Find(delegate (Fornecedor f) { return f.CNPJ == fcnpj; });
-
-            return fornecedorcompra;
-        }
-
-        public bool BuscarBloqueado(string fcnpj, List<string> bloqueados)
-        {
-            string buscar = bloqueados.Find(x => x == fcnpj.ToString());
-            if (buscar == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
-        }
-
-        public MPrima BuscaMPrima(string idMPrima, List<MPrima> mPrima)
-        {
-            MPrima mPrimaCompra = mPrima.Find(delegate (MPrima mP) { return mP.Id == idMPrima; });
-
-            return mPrimaCompra;
-        }
-
-        public bool ImprimirMPrima(List<MPrima> mPrima, string buscarMPrima)
-        {
-            bool buscar = false;
-            List<MPrima> listaMprima = mPrima.FindAll(delegate (MPrima m) { return m.Nome.ToLower() == buscarMPrima.ToLower(); });
-            listaMprima.ForEach(delegate (MPrima m)
-            {
-                Console.WriteLine(m.DadosMateriaPrima());
-                Console.WriteLine("\t\t\t\t\t-----------------------------------------");
-                buscar = true;
-            });
-            if (buscar == false)
-            {
-                Console.WriteLine("\t\t\t\t\tMateria-Prima nao encontrada");
-
-            }
-            return buscar;
-        }
 
 
 
     }
 }
+

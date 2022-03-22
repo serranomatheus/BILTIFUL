@@ -1,7 +1,7 @@
-﻿using BILTIFUL.Core.Controles;
+﻿//using BILTIFUL.Core.Controles;
 using BILTIFUL.ModuloCompra;
-using BILTIFUL.ModuloProducao;
-using BILTIFUL.ModuloVenda;
+//using BILTIFUL.ModuloProducao;
+//using BILTIFUL.ModuloVenda;
 using BILTIFUL.Core;
 using System;
 
@@ -17,8 +17,8 @@ namespace BILTIFUL
 
         public static void Menu()
         {
-            ProducaoService producaoService = new ProducaoService();
-            VendaService vendaService = new VendaService();
+            //ProducaoService producaoService = new ProducaoService();
+            //VendaService vendaService = new VendaService();
             CompraService compraService = new CompraService();
             CadastroService cadastroService = new CadastroService();
 
@@ -42,7 +42,7 @@ namespace BILTIFUL
 
                 case "1":
                     Console.Clear();
-                    producaoService.SubMenu();
+                    //producaoService.SubMenu();
                     BackMenu();
                     break;
 
@@ -54,7 +54,7 @@ namespace BILTIFUL
 
                 case "3":
                     Console.Clear();
-                    vendaService.SubMenu();
+                    //vendaService.SubMenu();
                     BackMenu();
                     break;
 
