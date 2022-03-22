@@ -2,6 +2,6 @@
 {
     public abstract class EntidadeBase
     {
-        public string Id { get; set; }
+        public double Id { get; set; }
     }
 }

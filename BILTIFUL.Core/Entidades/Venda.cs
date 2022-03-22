@@ -15,14 +15,14 @@ namespace BILTIFUL.Core.Entidades
         {
 
         }
-        public Venda(string id, string cliente, string valorTotal)
+        public Venda(double id, string cliente, string valorTotal)
         {
-            Id = id.PadLeft(5,'0');
+            Id = id;
             Cliente = cliente;
             ValorTotal = valorTotal.PadLeft(7,'0');
         }
 
-        public Venda(string id,DateTime dataVenda, string cliente, string valorTotal)
+        public Venda(double id,DateTime dataVenda, string cliente, string valorTotal)
         {
             Id = id;
             DataVenda = dataVenda;
@@ -30,19 +30,19 @@ namespace BILTIFUL.Core.Entidades
             ValorTotal = valorTotal;
         }
 
-        public void LocalizarVenda(string buscaid, List<Venda> list)
-        {
-            Venda aux = list.Find(i => i.Id == buscaid);
+        //public void LocalizarVenda(string buscaid, List<Venda> list)
+        //{
+        //    //Venda aux = list.Find(i => i.Id == buscaid);
 
-            if (aux == null)
-            {
-                Console.WriteLine("Nenhuma venda encontrada!!");
-            }
-            else
-            {
-                Console.WriteLine(aux.MostrarItemVenda());
-            }
-        }
+        //    if (aux == null)
+        //    {
+        //        Console.WriteLine("Nenhuma venda encontrada!!");
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(aux.MostrarItemVenda());
+        //    }
+        //}
         public string DadosVenda()
         {
             return $"-------------------------------------------\nId: {Id}\nCliente: {Cliente}\nValor total: {float.Parse(ValorTotal.Insert(3, ","))}\n-------------------------------------------";

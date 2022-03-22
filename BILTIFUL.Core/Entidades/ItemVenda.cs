@@ -14,7 +14,7 @@ namespace BILTIFUL.Core.Entidades
         {
         }
 
-        public ItemVenda(string id,string produto, string qtd, string valorunitario, string totalitem)
+        public ItemVenda(double id,string produto, string qtd, string valorunitario, string totalitem)
         {
             Id = id;
             this.Produto = produto;
@@ -23,9 +23,9 @@ namespace BILTIFUL.Core.Entidades
             this.TotalItem = totalitem;
         }
 
-        public ItemVenda(string id,string produto, string quantidade, string valorUnitario)
+        public ItemVenda(double id,string produto, string quantidade, string valorUnitario)
         {
-            Id=id.PadLeft(5,'0');
+            Id = id;
             Produto = produto;
             Quantidade = quantidade.PadLeft(3,'0');
             ValorUnitario = valorUnitario.PadLeft(5,'0');
