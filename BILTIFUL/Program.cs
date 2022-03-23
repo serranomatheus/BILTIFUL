@@ -4,14 +4,18 @@ using BILTIFUL.ModuloCompra;
 //using BILTIFUL.ModuloVenda;
 using BILTIFUL.Core;
 using System;
+using System.Globalization;
 
 namespace BILTIFUL
 {
     public class Program
     {
+        
+
         static void Main(string[] args)
         {
-            
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
+
             Menu();
         }
 

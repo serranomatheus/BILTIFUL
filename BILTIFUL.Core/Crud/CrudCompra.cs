@@ -262,7 +262,7 @@ namespace BILTIFUL.Core.Crud
                                 }); ;
                                 //Console.WriteLine("\t\t\t\t\t------------------------------------------ -\n\t\t\t\t\tId: {0}\n\t\t\t\t\tFornecedor: {1} \n\t\t\t\t\tDataCompra: {2}\n\t\t\t\t\tValor Total: {3}", reader.GetDecimal(0), reader.GetString(1),reader.GetDateTime(2).ToString("dd/mm/yyyy"),reader.GetDecimal(3));
 
-                                Console.ReadKey();
+                               
 
                                 
                             }
@@ -275,7 +275,51 @@ namespace BILTIFUL.Core.Crud
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.ReadKey();
+                
+                return null;
+            }
+        }
+
+        public List<Compra> LocalizarCompraID(double id)
+        {
+            SqlConnection connection = new SqlConnection(connString);
+            try
+            {
+                List<Compra> compras = new List<Compra>();
+
+                using (connection)
+                {
+                    connection.Open();
+
+                    String sql = "SELECT Id ,CNPJ_fornecedor, DataCompra, ValorTotal FROM dbo.Compra WHERE Id = '" + id + "'";
+
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                compras.Add(new Compra
+                                {
+                                    Id = (double)reader.GetDecimal(0),
+                                    DataCompra = reader.GetDateTime(2),
+                                    Fornecedor = reader.GetString(1),
+                                    ValorTotal = (double)reader.GetDecimal(3),
+                                    itemcompra = LocalizarCompraItemCompra((double)reader.GetDecimal(0))
+                                }); ;
+                                //Console.WriteLine("\t\t\t\t\t------------------------------------------ -\n\t\t\t\t\tId: {0}\n\t\t\t\t\tFornecedor: {1} \n\t\t\t\t\tDataCompra: {2}\n\t\t\t\t\tValor Total: {3}", reader.GetDecimal(0), reader.GetString(1),reader.GetDateTime(2).ToString("dd/mm/yyyy"),reader.GetDecimal(3));
+
+                            }
+                        }
+                    }
+                    connection.Close();
+                    return compras;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
                 return null;
             }
         }
@@ -309,7 +353,7 @@ namespace BILTIFUL.Core.Crud
                                     ValorUnitario = (double)reader.GetDecimal(3),
                                     TotalItem = (double)reader.GetDecimal(4)
                                 });
-                                Console.ReadKey();
+                               
 
 
                             }
@@ -324,7 +368,7 @@ namespace BILTIFUL.Core.Crud
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.ReadKey();
+                
                 return null;
             }
         }

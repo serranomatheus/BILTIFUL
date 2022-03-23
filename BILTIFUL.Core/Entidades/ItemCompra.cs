@@ -41,9 +41,9 @@ namespace BILTIFUL.Core.Entidades
         //{
         //    return $"{Id}{DataCompra.ToString("dd/MM/yyyy")}{MateriaPrima}{Quantidade}{ValorUnitario}{TotalItem}";
         //}
-        //public string DadosItemCompra()
-        //{
-        //    return $"\t\t\t\t\tMateria prima: {MateriaPrima}\n\t\t\t\t\tQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\n\t\t\t\t\tValor unitario: {float.Parse(ValorUnitario.Insert(3, ","))}\n\t\t\t\t\tTotal: {float.Parse(TotalItem.Insert(4, ","))}\n\t\t\t\t\t-------------------------------------------";
-        //}
+        public string DadosItemCompra()
+        {
+            return $"\n\t\t\t\t\t-------------------------------------------\n\t\t\t\t\tMateria prima: {MateriaPrima}\n\t\t\t\t\tQuantidade: {Quantidade}\n\t\t\t\t\tValor unitario: {ValorUnitario}\n\t\t\t\t\tTotal: {TotalItem}\n\t\t\t\t\t-------------------------------------------";
+         }
     }
 }
