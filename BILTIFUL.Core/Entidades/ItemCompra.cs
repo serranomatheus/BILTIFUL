@@ -8,40 +8,42 @@ namespace BILTIFUL.Core.Entidades
         public DateTime DataCompra { get; set; } = DateTime.Now;
         //ID materia prima
         public string MateriaPrima { get; set; }
-        public string Quantidade { get; set; }
-        public string ValorUnitario { get; set; }
-        public string TotalItem { get; set; }
+        public double Quantidade { get; set; }
+        public double ValorUnitario { get; set; }
+        public double TotalItem { get; set; }
+        public int ItemCompraID { get; set; }
 
         public ItemCompra()
         {
         }
 
-        public ItemCompra(string id,string materiaPrima, string quantidade, string valorUnitario,string totalitem)
+        public ItemCompra(int itemCOmpraID, double id,string materiaPrima, double quantidade, double valorUnitario, double totalitem)
         {
-            Id = id.PadLeft(5,'0');
-            MateriaPrima = materiaPrima;
-            Quantidade = quantidade.PadLeft(5,'0');
-            ValorUnitario = valorUnitario.PadLeft(5, '0');
-            TotalItem = totalitem.PadLeft(6,'0');
-        }
-
-        public ItemCompra(string id, DateTime dataCompra, string materiaPrima, string quantidade, string valorUnitario, string totalItem)
-        {
+            ItemCompraID = itemCOmpraID;
             Id = id;
-            DataCompra = dataCompra;
             MateriaPrima = materiaPrima;
             Quantidade = quantidade;
             ValorUnitario = valorUnitario;
-            TotalItem = totalItem;
+            TotalItem = totalitem;
         }
 
-        public string ConverterParaEDI()
-        {
-            return $"{Id}{DataCompra.ToString("dd/MM/yyyy")}{MateriaPrima}{Quantidade}{ValorUnitario}{TotalItem}";
-        }
+        //public ItemCompra(string id, DateTime dataCompra, string materiaPrima, string quantidade, string valorUnitario, string totalItem)
+        //{
+        //    Id = id;
+        //    DataCompra = dataCompra;
+        //    MateriaPrima = materiaPrima;
+        //    Quantidade = quantidade;
+        //    ValorUnitario = valorUnitario;
+        //    TotalItem = totalItem;
+        //}
+
+        //public string ConverterParaEDI()
+        //{
+        //    return $"{Id}{DataCompra.ToString("dd/MM/yyyy")}{MateriaPrima}{Quantidade}{ValorUnitario}{TotalItem}";
+        //}
         public string DadosItemCompra()
         {
-            return $"\t\t\t\t\tMateria prima: {MateriaPrima}\n\t\t\t\t\tQuantidade: {float.Parse(Quantidade.Insert(3, ","))}\n\t\t\t\t\tValor unitario: {float.Parse(ValorUnitario.Insert(3, ","))}\n\t\t\t\t\tTotal: {float.Parse(TotalItem.Insert(4, ","))}\n\t\t\t\t\t-------------------------------------------";
-        }
+            return $"\n\t\t\t\t\t-------------------------------------------\n\t\t\t\t\tMateria prima: {MateriaPrima}\n\t\t\t\t\tQuantidade: {Quantidade}\n\t\t\t\t\tValor unitario: {ValorUnitario}\n\t\t\t\t\tTotal: {TotalItem}\n\t\t\t\t\t-------------------------------------------";
+         }
     }
 }
