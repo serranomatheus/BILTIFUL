@@ -74,7 +74,7 @@ namespace BILTIFUL.ModuloCompra
                               "\t\t\t\t\t|opção: ");
                 opc = Console.ReadLine();
                 bool encontrado = false;
-                console.clear();
+                Console.Clear();
                 switch (opc)
                 {
                     case "1":
@@ -111,7 +111,7 @@ namespace BILTIFUL.ModuloCompra
 
                         Console.Write("\t\t\t\t\tdigite o cnpj do fornecedor que deseja localizar: ");
 
-                        cnpj = console.readline().trim().replace(".", "").replace("-", "").replace("/", "");
+                        cnpj = Console.ReadLine().Trim().Replace(".", "").Replace("-", "").Replace("/", "");
                         saida = true;
                         crudCompra.LocalizarCompraCNPJ(cnpj);
 
@@ -144,7 +144,7 @@ namespace BILTIFUL.ModuloCompra
 
                         break;
                     case "0":
-                        submenu();
+                        SubMenu();
                         break;
                     default:
                         Console.WriteLine("selecione uma opcao valida");
