@@ -25,24 +25,24 @@ namespace BILTIFUL.Core.Crud
                      + database + ";Persist Security Info=True;User ID=" + username + ";Password=" + password;
 
 
-        public void InserirCompra(Compra compra)
+        public void InserirCompra(Compra compra) 
         {
             SqlConnection connection = new SqlConnection(connString);
+           
+            
+                using (connection)
+                {
 
+                    connection.Open();
 
-            using (connection)
-            {
-
-                connection.Open();
-
-                SqlCommand sql_cmnd = new SqlCommand("Inserir_Compra", connection);
-                sql_cmnd.CommandType = CommandType.StoredProcedure;
-                sql_cmnd.Parameters.AddWithValue("@CNPJ_fornecedor", SqlDbType.NVarChar).Value = compra.Fornecedor;
-                sql_cmnd.Parameters.AddWithValue("@ValorTotal", SqlDbType.Float).Value = compra.ValorTotal;
-                sql_cmnd.ExecuteNonQuery();
-                connection.Close();
-            }
-
+                    SqlCommand sql_cmnd = new SqlCommand("Inserir_Compra", connection);
+                    sql_cmnd.CommandType = CommandType.StoredProcedure;
+                    sql_cmnd.Parameters.AddWithValue("@CNPJ_fornecedor", SqlDbType.NVarChar).Value = compra.Fornecedor;
+                    sql_cmnd.Parameters.AddWithValue("@ValorTotal", SqlDbType.Float).Value = compra.ValorTotal;                    
+                    sql_cmnd.ExecuteNonQuery();
+                    connection.Close();
+                }
+            
         }
 
         public void InserirItemCompra(ItemCompra itemCompra)
@@ -121,8 +121,8 @@ namespace BILTIFUL.Core.Crud
             {
                 using (connection)
                 {
-                    connection.Open();
-
+                    connection.Open();   
+                    
                     String sql = "SELECT Id, Nome FROM dbo.MPrima WHERE Nome = '" + buscar + "'";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
@@ -131,12 +131,12 @@ namespace BILTIFUL.Core.Crud
                         {
                             while (reader.Read())
                             {
-
+                               
                                 Console.WriteLine("\t\t\t\t\t------------------------------------------ -\n\t\t\t\t\tId:{0}\n\t\t\t\t\tNome:{1}", reader.GetString(0), reader.GetString(1));
                                 return true;
                             }
                         }
-                    }
+                    }                    
                     connection.Close();
                     return false;
                 }
@@ -153,9 +153,9 @@ namespace BILTIFUL.Core.Crud
             SqlConnection connection = new SqlConnection(connString);
             try
             {
-                using (connection)
-
-                {
+                using (connection)                    
+                
+                {                    
                     connection.Open();
 
                     String sql = "SELECT RazaoSocial, CNPJ  FROM dbo.Fornecedor WHERE CNPJ = " + cnpj;
@@ -171,20 +171,20 @@ namespace BILTIFUL.Core.Crud
                                 Console.WriteLine("\t\t\t\t\tFornecedor:\t{0}\n\t\t\t\t\tCnpj:\t {1}", reader.GetString(0), reader.GetString(1));
                                 return true;
                             }
-
+                           
                         }
-
+                       
                     }
-
+                    
                     connection.Close();
-
+                    
                     return false;
                 }
             }
             catch
             {
-
-
+                
+                
                 return false;
             }
         }
@@ -212,7 +212,7 @@ namespace BILTIFUL.Core.Crud
 
                                 Console.WriteLine("\t\t\t\t\tCompra indisponivel para esse fornecedor");
                                 Console.WriteLine("\t\t\t\t\tCnpj:\t {0}", reader.GetString(0));
-
+                                
                                 return true;
                             }
 
@@ -329,5 +329,5 @@ namespace BILTIFUL.Core.Crud
             }
         }
     }
-}
+    }
 
